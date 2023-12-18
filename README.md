@@ -47,5 +47,5 @@ For any inquiries or issues, please contact:
 
 Maintainer: Aditya Kushwaha
 Email: reachadikush@gmail.com
-Feel free to reach out if you have any questions, suggestions, or feedback! 🚀
+#Feel free to reach out if you have any questions, suggestions, or feedback! 🚀
 
