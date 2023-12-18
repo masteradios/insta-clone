@@ -1,5 +1,5 @@
 # insta_clone
-
+file:///D:/flutter_projects/insta_clone/assets/insta.svg
 A new Flutter project.
 
 ## Getting Started
