@@ -1,8 +1,5 @@
 # Insta-Clone: Vistagram
-
 ![insta](https://github.com/masteradios/insta-clone/assets/110710412/cd27e450-8cf5-4a0e-8739-03e54318cb0c)
-
-
 ## Overview
 
 **Insta-Clone: Vistagram** is a Flutter and Firebase-based mobile application that replicates the core functionalities of Instagram. Users can seamlessly upload images from their gallery, create posts, and **follow/unfollow** other users. The real-time synchronization feature ensures that users can see updates and posts instantly.
