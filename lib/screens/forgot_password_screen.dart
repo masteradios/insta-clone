@@ -13,6 +13,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController _emailController=TextEditingController();
+  bool isLoading=false;
 
   @override
   void dispose() {
@@ -45,9 +46,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   hinttext: '',
                   controller: _emailController,
                   keyboardtype: TextInputType.emailAddress),
-              Container(width: double.infinity,child: Button(buttontitle: 'Submit', buttonCallback: ()
+             isLoading?Container(width: double.infinity,color: Colors.blue,child: Center(child: const CircularProgressIndicator(color: primaryColor,)),): Container(width: double.infinity,child: Button(buttontitle: 'Submit', buttonCallback: ()
               async {
+                setState(() {
+                  isLoading=true;
+                });
                 String res=await Auth().sendPasswordResetMail(email: _emailController.text.trim());
+                setState(() {
+                  isLoading=false;
+                });
                 showSnackBar(context: context, content: res);
                   Navigator.of(context).pop();
               }))

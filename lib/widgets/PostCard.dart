@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -17,16 +18,34 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
+  int commentLen = 0;
   void reportPost() {
     print('Post has been reported');
     showSnackBar(context: context, content: 'Post has been reported');
     Navigator.of(context).pop();
   }
 
+  void getComments() async {
+    QuerySnapshot snap = await FirebaseFirestore.instance
+        .collection('posts')
+        .doc(widget.snap['postId'])
+        .collection('comments')
+        .get();
+    setState(() {
+      commentLen = snap.docs.length;
+    });
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getComments();
   }
   @override
   Widget build(BuildContext context) {
@@ -78,11 +97,17 @@ class _PostCardState extends State<PostCard> {
                                           onTap: widget.snap['uid'] ==
                                                   FirebaseAuth
                                                       .instance.currentUser!.uid
-                                              ? ()async {
-                                            String res =
-                                            await FirestoreMethods().deletePost(postId: widget.snap['postId']);
-                                            showSnackBar(context: context, content: res);
-                                            Navigator.of(context).pop();
+                                              ? () async {
+                                                  String res =
+                                                      await FirestoreMethods()
+                                                          .deletePost(
+                                                              postId: widget
+                                                                      .snap[
+                                                                  'postId']);
+                                                  showSnackBar(
+                                                      context: context,
+                                                      content: res);
+                                                  Navigator.of(context).pop();
                                                 }
                                               : reportPost,
                                           child: Container(
@@ -138,9 +163,12 @@ class _PostCardState extends State<PostCard> {
                   ActionOnPost(
                       color: Colors.white,
                       icon: HeroIcons.chat_bubble_bottom_center,
-                      IconCallback: ()
-                      {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CommentScreen( snap: widget.snap)));
+                      IconCallback: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CommentScreen(snap: widget.snap)));
                       }),
                   ActionOnPost(
                       color: Colors.white,
@@ -180,6 +208,21 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
             ],
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            CommentScreen(snap: widget.snap)));
+              },
+              child: Text(
+                'View all ${commentLen} comments',
+                style: TextStyle(color: secondaryColor,fontWeight: FontWeight.w600),
+              ),
+            ),
           ),
           Container(
             child: Text(

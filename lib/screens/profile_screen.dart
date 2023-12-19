@@ -5,6 +5,7 @@ import 'package:insta_clone/models/user.dart';
 import 'package:insta_clone/providers/user_provider.dart';
 import 'package:insta_clone/resources/firestore_methods.dart';
 import 'package:insta_clone/screens/individual_post_screen.dart';
+import 'package:insta_clone/screens/login_screen.dart';
 import 'package:insta_clone/utils/snackBar.dart';
 import 'package:insta_clone/widgets/follow_button.dart';
 import 'package:provider/provider.dart';
@@ -66,8 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void signoutuser() {
-    final FirebaseAuth _firebase = FirebaseAuth.instance;
-    _firebase.signOut();
+
   }
 
 
@@ -130,7 +130,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 widget.uid
                                             ? FollowButton(
                                                 buttontitle: 'Sign Out',
-                                                buttonCallback: signoutuser,
+                                                buttonCallback: ()async
+                                                {
+                                                  final FirebaseAuth _firebaseauth = FirebaseAuth.instance;
+                                                  await _firebaseauth.signOut();
+                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                                                },
                                                 backgroundColor:
                                                     mobileBackgroundColor,
                                                 borderColor: secondaryColor)
