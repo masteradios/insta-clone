@@ -21,7 +21,7 @@
 - **Firebase:** The backend relies on Firebase for authentication, real-time database, and storage.
 
 ## Getting Started
-
+# Please note that google.json file has been removed for security purposes.Use your own google.json file.
 Follow these steps to get the project up and running on your local machine:
 
 1. **Clone the Repository:**
@@ -48,4 +48,5 @@ For any inquiries or issues, please contact:
 Maintainer: Aditya Kushwaha
 Email: reachadikush@gmail.com
 ## Feel free to reach out if you have any questions, suggestions, or feedback! 🚀
+
 
